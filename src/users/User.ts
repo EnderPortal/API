@@ -14,6 +14,12 @@ export class User {
      */
     @Column({unique: true})
     username: string;
+    
+    /**
+     * Mail, it is unique
+     */
+    @Column({unique: true})
+    mail: string;
 
     /**
      * Password : hashed with bcrypt

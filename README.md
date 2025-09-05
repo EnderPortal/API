@@ -52,6 +52,7 @@ Créer un nouvel utilisateur.
 
 ```json
 {
+  "mail": "nkri.test@gmail.com",
   "username": "NKRI",
   "password": "monmdp"
 }

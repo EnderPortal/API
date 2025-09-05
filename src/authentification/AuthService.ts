@@ -14,15 +14,22 @@ export class AuthService{
     /**
      * register a player through the auth system
      * 
+     * @param mail player email
      * @param username player name
      * @param password player password
      * @returns user object (id, username)
      */
-    async register(username: string, password: string){
+    async register(mail: string, username: string, password: string){
         //Checked if user already exist
         const userChecked = await this.userService.findByUsername(username);
         if(userChecked){
             throw new BadRequestException("Username already exists");
+        }
+
+        //Checked if mail already exist
+        const mailChecked = await this.userService.findByMail(mail);
+        if(mailChecked){
+            throw new BadRequestException("Mail already exists");
         }
 
         //checked if password >=5
@@ -34,7 +41,7 @@ export class AuthService{
         const pwdHashed = await bcrypt.hash(password, 10);
 
         //Create an user
-        const user = await this.userService.create(username, pwdHashed);
+        const user = await this.userService.create(mail, username, pwdHashed);
         
         //Create a new login session
         const login = await this.login(username, password);

@@ -17,8 +17,8 @@ export class AuthController {
      * @returns new User Object with the JWT access token + data
      */
     @Post("register")
-    async register(@Body() body : {username: string, password : string}){
-        return this.authService.register(body.username, body.password);
+    async register(@Body() body : {mail: string, username: string, password : string}){
+        return this.authService.register(body.mail, body.username, body.password);
     }
 
     /**

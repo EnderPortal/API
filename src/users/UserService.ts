@@ -17,8 +17,8 @@ export class UserService{
      * @param password player password
      * @returns user entity
      */
-    async create(username: string, password: string) : Promise<User>{
-        const user = this.userRepo.create({username, password});
+    async create(mail:string, username: string, password: string) : Promise<User>{
+        const user = this.userRepo.create({username, mail, password});
         return this.userRepo.save(user);
     }
 
@@ -30,5 +30,15 @@ export class UserService{
      */
     async findByUsername(username: string): Promise<User | null>{
         return this.userRepo.findOne({where: {username}});
+    }
+
+    /**
+     * Retrieves a User based on their mail
+     * 
+     * @param mail mail of the player or we want to recover his user object
+     * @returns the player's object or nothing if the mail is not found
+     */
+    async findByMail(mail: string): Promise<User | null>{
+        return this.userRepo.findOne({where: {mail}});
     }
 }
