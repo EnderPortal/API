@@ -129,7 +129,7 @@ Authorization: Bearer <TON_ACCESS_TOKEN>
 
   * La route est protégée par `JwtAuthGuard`.
   * `request.user` contient les infos décodées du JWT via `JwtStrategy.validate()`.
-  * `request.user.id` est utilisé pour récupérer les données via UserService.findById().
+  * `request.user.id` est utilisé pour récupérer les données via `UserService.findById()`.
   * Le mot de passe n’est jamais renvoyé, merci le DTO.
   * Cette route contient les informations utilisateur et le profil de jeu.
 
