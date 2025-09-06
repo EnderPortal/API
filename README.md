@@ -101,9 +101,9 @@ Se connecter et récupérer un JWT.
 
 ---
 
-### 3️⃣ GET `/auth/profile`
+### 3️⃣ GET `/users/user`
 
-Récupérer les informations de l’utilisateur connecté.
+Récupérer les informations de l’utilisateur connecté (profil complet).
 
 * **Headers :**
 
@@ -116,7 +116,12 @@ Authorization: Bearer <TON_ACCESS_TOKEN>
 ```json
 {
   "id": 1,
-  "username": "NKRI"
+  "username": "NKRI",
+  "mail": "nkri.test@gmail.com",
+  "profile": {
+    "id": 1,
+    "coins": 0
+  }
 }
 ```
 
@@ -124,6 +129,9 @@ Authorization: Bearer <TON_ACCESS_TOKEN>
 
   * La route est protégée par `JwtAuthGuard`.
   * `request.user` contient les infos décodées du JWT via `JwtStrategy.validate()`.
+  * `request.user.id` est utilisé pour récupérer les données via UserService.findById().
+  * Le mot de passe n’est jamais renvoyé, merci le DTO.
+  * Cette route contient les informations utilisateur et le profil de jeu.
 
 ---
 
