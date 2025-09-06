@@ -2,6 +2,8 @@ import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { User } from "./User";
 import { Repository } from "typeorm";
+import { Profile } from "./profile/Profile";
+import { UserProfileDTO } from "./dtos/UserProfileDTO";
 
 @Injectable()
 export class UserService{
@@ -18,7 +20,9 @@ export class UserService{
      * @returns user entity
      */
     async create(mail:string, username: string, password: string) : Promise<User>{
-        const user = this.userRepo.create({username, mail, password});
+        const profile = new Profile();
+        const user = this.userRepo.create({username, mail, password, profile});
+        
         return this.userRepo.save(user);
     }
 
@@ -40,5 +44,28 @@ export class UserService{
      */
     async findByMail(mail: string): Promise<User | null>{
         return this.userRepo.findOne({where: {mail}});
+    }
+
+    /**
+     * Retrieve a player's profile
+     * @param id user ID
+     * @returns UserProfileDTO (without password) or null
+     */
+    async findById(id: number): Promise<UserProfileDTO | null>{
+        const user = await this.userRepo.findOne({where : {id}, relations: ["profile"]});
+
+        if(!user){
+            return null;
+        }
+
+        //Create DTO
+        const userDTO: UserProfileDTO = {
+            id: user.id,
+            username: user.username,
+            mail: user.mail,
+            profile: user.profile,
+        };
+
+        return userDTO;
     }
 }

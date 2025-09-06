@@ -34,17 +34,4 @@ export class AuthController {
     async login(@Body() body : {username: string, password :string}){
         return this.authService.login(body.username, body.password);
     }
-
-    /**
-     * GET /profile
-     * returns the logged in user's information from the JWT
-     * 
-     * @param request HTTP request
-     * @returns User object
-     */
-    @UseGuards(JwtAuthGuard)
-    @Get("profile")
-    getProfile(@Request() request){
-        return request.user;
-    }
 }
