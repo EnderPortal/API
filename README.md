@@ -32,6 +32,9 @@ DB_NAME=enderportal
 # JWT config
 JWT_SECRET=une_clef_secrete
 JWT_EXPIRES_IN=3600s
+
+# Server KEY : key to communicate between server and API
+API_KEY=mon_api_key
 ```
 
 4. Démarrer l’application :
@@ -137,7 +140,7 @@ Authorization: Bearer <TON_ACCESS_TOKEN>
 
 ### 4️⃣ GET `/hello`
 
-Exemple de route protégée supplémentaire.
+Exemple de route protégée supplémentaire par la clé API KEY. (pour le test)
 
 * **Headers :**
 
@@ -148,15 +151,12 @@ Authorization: Bearer <TON_ACCESS_TOKEN>
 * **Réponse :**
 
 ```json
-{
-  "message": "Hello ! Ur user id: 1",
-  "id": 1
-}
+Hello World !
 ```
 
 * **Notes :**
 
-  * Permet de tester la protection JWT sur n’importe quelle route.
+  * Permet de tester la protection avec API KEY sur n’importe quelle route.
 
 ---
 
@@ -186,6 +186,14 @@ Authorization: Bearer <TON_ACCESS_TOKEN>
   * `id` (int, PK)
   * `username` (varchar, unique)
   * `password` (varchar, hashé)
+  * `profile` (profile, donnée de jeu du joueur)
+
+* **Table :** `profile`
+
+* **Champs :**
+
+  * `id` (int, PK)
+  * `coins` (int, pièces du joueur)
 
 * **Synchronisation automatique :**
 
@@ -230,4 +238,4 @@ Client reçoit les données de l'utilisateur
 1. `POST /auth/register` → créer un utilisateur.
 2. `POST /auth/login` → récupérer le `access_token`.
 3. `GET /auth/profile` → ajouter le token dans **Authorization → Bearer Token**.
-4. `GET /hello` → tester une route protégée avec JWT.
+4. `GET /hello` → tester une route protégée avec API KEY.
