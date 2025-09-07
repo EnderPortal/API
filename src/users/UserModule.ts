@@ -4,9 +4,10 @@ import { User } from "./User";
 import { UserService } from "./UserService";
 import { Profile } from "./profile/Profile";
 import { UserController } from "./UserController";
+import { Rank } from "src/servers/ranks/Rank";
 
 @Module({
-    imports: [TypeOrmModule.forFeature([User, Profile])],
+    imports: [TypeOrmModule.forFeature([User, Profile, Rank])],
     providers: [UserService],
     exports: [UserService],
     controllers: [UserController],

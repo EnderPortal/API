@@ -75,7 +75,7 @@ export class AuthService{
         }
 
         //TODO : créer un DTO ?
-        const data = {id: user.id, username : user.username};
+        const data = {id: user.id, username : user.username, rankId: user.rank.id};
         return {
             access_token : this.jwtService.sign(data)
         };

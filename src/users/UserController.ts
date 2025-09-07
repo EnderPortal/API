@@ -20,5 +20,4 @@ export class UserController{
         const userId = request.user.id;
         return this.userService.findById(userId);
     }
-
 }

@@ -4,12 +4,14 @@ import { User } from "./User";
 import { Repository } from "typeorm";
 import { Profile } from "./profile/Profile";
 import { UserProfileDTO } from "./dtos/UserProfileDTO";
+import { Rank } from "src/servers/ranks/Rank";
 
 @Injectable()
 export class UserService{
 
     constructor(
         @InjectRepository(User) private userRepo : Repository<User>,
+        @InjectRepository(Rank) private rankRepo : Repository<Rank>,
     ){}
 
     /**
@@ -21,8 +23,18 @@ export class UserService{
      */
     async create(mail:string, username: string, password: string) : Promise<User>{
         const profile = new Profile();
+        
+        /**
+         * retrieving the named player grade from the database, this is the default grade
+         */
+        const rank = await this.rankRepo.findOne({where : {name: "Joueur"}});
         const user = this.userRepo.create({username, mail, password, profile});
         
+        //Apply rank
+        if(rank){
+            user.rank = rank;
+        }
+
         return this.userRepo.save(user);
     }
 
@@ -33,7 +45,7 @@ export class UserService{
      * @returns the player's object or nothing if the nickname is not found
      */
     async findByUsername(username: string): Promise<User | null>{
-        return this.userRepo.findOne({where: {username}});
+        return this.userRepo.findOne({where: {username}, relations: ["rank"]});
     }
 
     /**
@@ -52,7 +64,7 @@ export class UserService{
      * @returns UserProfileDTO (without password) or null
      */
     async findById(id: number): Promise<UserProfileDTO | null>{
-        const user = await this.userRepo.findOne({where : {id}, relations: ["profile"]});
+        const user = await this.userRepo.findOne({where : {id}, relations: ["profile", "rank"]});
 
         if(!user){
             return null;
@@ -63,6 +75,7 @@ export class UserService{
             id: user.id,
             username: user.username,
             mail: user.mail,
+            rankId: user.rank.id,
             profile: user.profile,
         };
 
