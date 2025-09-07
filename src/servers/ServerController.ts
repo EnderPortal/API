@@ -1,10 +1,11 @@
 import { Controller, Get, UseGuards } from "@nestjs/common";
 import { APIKeyGuard } from "src/authentification/api-key/APIKeyGuard";
+import { RankService } from "./ranks/RankService";
 
 @Controller("server")
 export class ServerController{
 
-    //TODO : créer le service :)
+    constructor(private rankService : RankService){}
 
     /**
      * GET /ranks
@@ -15,6 +16,6 @@ export class ServerController{
     @UseGuards(APIKeyGuard)
     @Get("ranks")
     getAllRank(){
-        return "DATA : ranks";
+        return this.rankService.findAll();
     }
 }

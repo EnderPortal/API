@@ -160,6 +160,44 @@ Hello World !
 
 ---
 
+### 5️⃣ GET `/server/ranks`
+
+Récupère la liste des grades sous forme de liste
+
+* **Headers :**
+
+```
+Authorization: Bearer <API_KEY>
+```
+
+* **Réponse :**
+
+```json
+[
+    {
+        "id": 1,
+        "name": "Admin",
+        "prefix": "&c[Admin]"
+    },
+    {
+        "id": 2,
+        "name": "Modo",
+        "prefix": "&2[Modo]"
+    },
+    {
+        "id": 3,
+        "name": "VIP",
+        "prefix": "&b[VIP]"
+    },
+    {
+        "id": 4,
+        "name": "Joueur",
+        "prefix": "&7[Joueur]"
+    }
+]
+```
+---
+
 ## 🔒 Sécurité
 
 * **Encryption des mots de passe :**
