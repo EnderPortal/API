@@ -7,6 +7,7 @@ import { UserModule } from './users/UserModule';
 import { AuthModule } from './authentification/AuthModule';
 import { HelloController } from './hello/HelloController';
 import { HelloModule } from './hello/HelloModule';
+import { ServerModule } from './servers/ServerModule';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { HelloModule } from './hello/HelloModule';
     UserModule,
     AuthModule,
     HelloModule,
+    ServerModule,
   ],
   controllers: [AppController],
   providers: [AppService],
