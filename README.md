@@ -145,7 +145,7 @@ Exemple de route protégée supplémentaire par la clé API KEY. (pour le test)
 * **Headers :**
 
 ```
-Authorization: Bearer <TON_ACCESS_TOKEN>
+Authorization: Bearer <API_KEY>
 ```
 
 * **Réponse :**
